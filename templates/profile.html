@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+    <h2>Welcome to your Profile</h2>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Form to submit YouTube video link -->
+    <h3>Download a YouTube Video</h3>
+    <form action="{{ url_for('download') }}" method="post">
+        <label for="url">YouTube Video URL:</label><br>
+        <input type="text" id="url" name="url" required><br><br>
+        <input type="submit" value="Download">
+    </form>
+
+    <h3>History:</h3>
+    <ul>
+        {% for item in user.history %}
+            <li><a href="{{ item.video_url }}">{{ item.video_title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
