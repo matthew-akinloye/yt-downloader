@@ -32,6 +32,7 @@ mutagen==1.47.0
 packaging==24.0
 pip-autoremove==0.10.0
 pipdeptree==2.20.0
+psycopg2-binary==2.9.9
 pycryptodomex==3.20.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
