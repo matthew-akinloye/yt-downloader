@@ -90,3 +90,24 @@ def download():
             return redirect(url_for('profile'))
     return redirect(url_for('login'))
 
+@app.route('/edit_history/<int:history_id>', methods=['GET', 'POST'])
+def edit_history(history_id):
+    if 'email' in session:
+        history = History.query.get_or_404(history_id)
+        if request.method == 'POST':
+            history.video_title = request.form['video_title']
+            history.save()
+            flash('History item updated successfully.')
+            return redirect(url_for('profile'))
+        return render_template('edit_history.html', history=history)
+    return redirect(url_for('login'))
+
+
+@app.route('/delete_history/<int:history_id>', methods=['POST'])
+def delete_history(history_id):
+    if 'email' in session:
+        history = History.query.get_or_404(history_id)
+        history.delete()
+        flash('History item deleted successfully.')
+        return redirect(url_for('profile'))
+    return redirect(url_for('login'))

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Edit History{% endblock %}
+{% block content %}
+    <h2>Edit History Item</h2>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Form to edit history item -->
+    <form action="{{ url_for('edit_history', history_id=history.id) }}" method="post">
+        <label for="video_title">Video Title:</label><br>
+        <input type="text" id="video_title" name="video_title" value="{{ history.video_title }}" required><br><br>
+        <input type="submit" value="Save Changes">
+    </form>
+{% endblock %}

@@ -1,8 +1,5 @@
 from app import db
 from datetime import datetime
-
-
-
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
@@ -16,9 +13,7 @@ class User(db.Model):
 
     def delete(self):
         db.session.delete(self)
-        db.session.commit()
-        
-        
+        db.session.commit()    
 class History(db.Model):
     __tablename__ = 'history'
     id = db.Column(db.Integer, primary_key=True)
@@ -26,3 +21,11 @@ class History(db.Model):
     video_url = db.Column(db.String(200), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()

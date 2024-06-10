@@ -25,7 +25,14 @@
     <h3>History:</h3>
     <ul>
         {% for item in user.history %}
-            <li><a href="{{ item.video_url }}">{{ item.video_title }}</a></li>
+            <li>
+                <a href="{{ item.video_url }}">{{ item.video_title }}</a>
+                <video src="/static/downloads/{{ item.video_title }}.mp4" controls></video>
+                <a href="{{ url_for('edit_history', history_id=item.id) }}" style="text-decoration: none;">Edit</a>
+                <form action="{{ url_for('delete_history', history_id=item.id) }}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
