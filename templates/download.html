@@ -1,51 +1,233 @@
 {% extends 'base.html' %}
 {% block title %}Download{% endblock %}
 {% block content %}
-<div class="max-w-2xl mx-auto px-4 py-8">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Video Downloaded</h2>
+<div
+    class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4 relative overflow-hidden">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 overflow-hidden opacity-20">
+        <div
+            class="absolute top-0 -left-10 w-72 h-72 bg-white rounded-full mix-blend-multiply filter blur-xl animate-blob">
+        </div>
+        <div
+            class="absolute top-0 -right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000">
+        </div>
+    </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6 space-y-4">
-        <!-- Video Title -->
-        <div>
-            <p class="text-sm font-medium text-gray-600">Title:</p>
-            <p class="text-lg font-semibold text-gray-800">{{ video_info.title }}</p>
+    <div class="max-w-3xl mx-auto">
+        <!-- Success Animation -->
+        <div class="flex justify-center mb-6" data-aos="zoom-in">
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg">
+                <svg class="w-16 h-16 text-green-500 animate-success-check" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
         </div>
 
-        <!-- Video URL -->
-        <div>
-            <p class="text-sm font-medium text-gray-600">URL:</p>
-            <a href="{{ video_info.url }}" target="_blank"
-                class="text-blue-600 hover:text-blue-800 hover:underline break-words">
-                {{ video_info.url }}
-            </a>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 text-center drop-shadow-md" data-aos="fade-up">
+            Download Ready!
+        </h2>
+
+        <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden" data-aos="fade-up"
+            data-aos-delay="200">
+            <!-- Video Preview Section -->
+            <div class="bg-gray-800 p-4 relative">
+                <div class="aspect-video bg-black/50 rounded-lg flex items-center justify-center overflow-hidden">
+                    {% if video_info.thumbnail %}
+                    <img src="{{ video_info.thumbnail }}" alt="{{ video_info.title }}"
+                        class="w-full h-full object-cover">
+                    {% else %}
+                    <div class="flex flex-col items-center justify-center text-white">
+                        <svg class="w-16 h-16 mb-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-gray-400">Video Preview Not Available</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Video Information -->
+            <div class="p-6 space-y-6">
+                <!-- Video Title -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-1 line-clamp-2">{{ video_info.title }}</h3>
+                    <div class="flex items-center text-sm text-gray-500">
+                        {% if video_info.duration %}
+                        <span class="flex items-center mr-4">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            {{ video_info.duration }}
+                        </span>
+                        {% endif %}
+                        {% if video_info.format %}
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z">
+                                </path>
+                            </svg>
+                            {{ video_info.format }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Video URL -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <p class="text-sm font-medium text-gray-600 mb-1">Source URL:</p>
+                    <div class="flex items-center">
+                        <a href="{{ video_info.url }}" target="_blank"
+                            class="text-indigo-600 hover:text-indigo-800 hover:underline break-all text-sm">
+                            {{ video_info.url }}
+                        </a>
+                        <button onclick="copyToClipboard('{{ video_info.url }}')"
+                            class="ml-2 text-gray-500 hover:text-gray-700">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Download Options -->
+                <div class="space-y-4">
+                    <p class="text-sm font-medium text-gray-600">Download Options:</p>
+
+                    <!-- Primary Download Button -->
+                    <a href="{{ url_for('static', filename='downloads/' ~ video_info.filepath) }}" download
+                        class="flex items-center justify-center w-full px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-bold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Download Now
+                    </a>
+
+                    <!-- Alternative Format Options (if available) -->
+                    {% if video_info.alt_formats %}
+                    <div class="grid grid-cols-2 gap-3 mt-3">
+                        {% for format in video_info.alt_formats %}
+                        <a href="{{ url_for('static', filename='downloads/' ~ format.filepath) }}" download
+                            class="flex items-center justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                            <span>{{ format.label }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
-        <!-- Download Link -->
-        <div>
-            <p class="text-sm font-medium text-gray-600">Download Link:</p>
-            <a href="{{ url_for('static', filename='downloads/' ~ video_info.filepath) }}" download
-                class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8" data-aos="fade-up"
+            data-aos-delay="400">
+            <a href="{{ url_for('profile') }}"
+                class="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-colors">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
-                Click here to download the video
+                Back to Profile
+            </a>
+            <a href="{{ url_for('index') }}"
+                class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 rounded-lg hover:bg-gray-100 transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Download Another Video
             </a>
         </div>
     </div>
-
-    <!-- Back to Profile Link -->
-    <div class="mt-8 text-center">
-        <a href="{{ url_for('profile') }}"
-            class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
-                </path>
-            </svg>
-            Back to Profile
-        </a>
-    </div>
 </div>
+
+<!-- Animation styles -->
+<style>
+    @keyframes blob {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+        }
+
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+
+        100% {
+            transform: translate(0px, 0px) scale(1);
+        }
+    }
+
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+
+    @keyframes success-check {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        50% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .animate-success-check {
+        animation: success-check 0.8s ease-out forwards;
+    }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function () {
+            // Show a temporary tooltip or notification
+            alert('URL copied to clipboard!');
+        }, function (err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+</script>
 {% endblock %}

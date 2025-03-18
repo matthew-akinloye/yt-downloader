@@ -1,39 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>{% block title %}{% endblock %}</title>
-</head>
-<body class="bg-gray-100">
-    <header class="bg-gray-800 text-white shadow-lg">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <h1 class="text-2xl font-bold mb-4 md:mb-0">YouTube Downloader</h1>
-                <nav class="flex space-x-4">
-                    {% if 'email' in session %}
-                        <a href="{{ url_for('profile') }}" class="hover:text-gray-300 px-4 py-2 rounded transition-colors">Profile</a>
-                        <a href="{{ url_for('logout') }}" class="hover:text-gray-300 px-4 py-2 rounded transition-colors">Logout</a>
-                    {% else %}
-                        <a href="{{ url_for('login') }}" class="hover:text-gray-300 px-4 py-2 rounded transition-colors">Login</a>
-                        <a href="{{ url_for('signup') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">Sign Up</a>
-                    {% endif %}
-                </nav>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            'yt-red': '#FF0000',
+                            'yt-dark': '#282828',
+                        }
+                    }
+                }
+            }
+        </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            .bg-gradient {
+                background: linear-gradient(135deg, #FF0000 0%, #FF5733 100%);
+            }
+
+            .pulse-slow {
+                animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+
+            @keyframes pulse {
+
+                0%,
+                100% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.8;
+                }
+            }
+        </style>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body class="bg-gray-100">
+        <header class="bg-yt-dark text-white shadow-lg">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <h1 class="text-2xl font-bold mb-4 md:mb-0 flex items-center">
+                        <i class="fab fa-youtube text-yt-red mr-2"></i>
+                        YouTube Downloader
+                    </h1>
+                    <nav class="flex space-x-4">
+                        {% if 'email' in session %}
+                        <a href="{{ url_for('profile') }}"
+                            class="hover:text-yt-red px-4 py-2 rounded transition-colors flex items-center">
+                            <i class="fas fa-user mr-1"></i> Profile
+                        </a>
+                        <a href="{{ url_for('logout') }}"
+                            class="hover:text-yt-red px-4 py-2 rounded transition-colors flex items-center">
+                            <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('login') }}"
+                            class="hover:text-yt-red px-4 py-2 rounded transition-colors flex items-center">
+                            <i class="fas fa-sign-in-alt mr-1"></i> Login
+                        </a>
+                        <a href="{{ url_for('signup') }}"
+                            class="bg-yt-red hover:bg-red-700 text-white px-4 py-2 rounded-full transition-all transform hover:scale-105 flex items-center">
+                            <i class="fas fa-user-plus mr-1"></i> Sign Up
+                        </a>
+                        {% endif %}
+                    </nav>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="container mx-auto px-4 py-8">
-        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-            {% block content %}{% endblock %}
-        </div>
-    </main>
+        <main class="container mx-auto px-4 py-8">
+            <div class="mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
 
-    <footer class="bg-gray-800 text-white mt-12 fixed bottom-0">
-        <div class="container mx-auto px-4 py-6">
-            <p class="text-center">&copy; 2025 YT-SAVE All rights reserved.</p>
-        </div>
-    </footer>
-</body>
+        <footer class="bg-yt-dark text-white mt-12">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-center mb-4 md:mb-0">
+                        <i class="fas fa-copyright mr-1"></i> 2025 YT-SAVE All rights reserved.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-yt-red transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yt-red transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yt-red transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-yt-red transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+
 </html>
