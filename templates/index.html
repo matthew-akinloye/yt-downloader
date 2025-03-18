@@ -1,6 +1,69 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <h2>Welcome to YouTube Downloader</h2>
-    <p>Download your favorite YouTube videos here!</p>
+<div class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 to-purple-50">
+    <!-- Hero Section -->
+    <div class="text-center max-w-2xl px-4">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">
+            Welcome to <span class="text-blue-600">YouTube Downloader</span>
+        </h1>
+        <p class="text-lg text-gray-600 mb-8">
+            Download your favorite YouTube videos in just a few clicks! Fast, easy, and free.
+        </p>
+
+        <!-- Call-to-Action Button -->
+        <a href="{{ url_for('profile') }}"
+            class="inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+            Start Downloading
+        </a>
+    </div>
+
+    <!-- Features Section -->
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl px-4">
+        <!-- Feature 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+            <div class="text-blue-600 mb-4">
+                <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">High-Quality Downloads</h3>
+            <p class="text-gray-600">Download videos in HD, MP4, and other formats with just one click.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+            <div class="text-blue-600 mb-4">
+                <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Fast & Easy</h3>
+            <p class="text-gray-600">No sign-up required. Get your videos in seconds.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+            <div class="text-blue-600 mb-4">
+                <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Safe & Secure</h3>
+            <p class="text-gray-600">Your data is always protected. No ads, no malware.</p>
+        </div>
+    </div>
+</div>
 {% endblock %}
